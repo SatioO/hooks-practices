@@ -6,7 +6,7 @@ import { UseState, UseEffect } from "./hooks";
 function App() {
     return (
         <div>
-            <UseState />
+            {/* <UseState /> */}
             <UseEffect />
         </div>
     );
