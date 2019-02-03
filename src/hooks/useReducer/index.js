@@ -1,4 +1,10 @@
-import React, { useReducer, useEffect, memo } from "react";
+import React, {
+    useReducer,
+    useEffect,
+    memo,
+    useCallback,
+    useMemo
+} from "react";
 
 // function reducer(state, action) {
 //     switch (action.type) {
@@ -42,15 +48,23 @@ function reducer(state, action) {
     }[action.type]();
 }
 
+function alertItem(item) {
+    console.log(item);
+}
+
 const ListItem = memo(function ListItem({ item }) {
     console.log(item);
-    return <h1>{item}</h1>;
+    return <h1 onClick={useCallback(() => alertItem(item), [item])}>{item}</h1>;
 });
 
 // function ListItem({ item }) {
 //     console.log(item);
 //     return <h1>{item}</h1>;
 // }
+
+function onListItemRender(item) {
+    return <ListItem key={item} item={item} />;
+}
 
 export default function UseReducer() {
     const [state, dispatch] = useReducer(reducer, [1, 2, 3, 4, 5]);
@@ -63,17 +77,13 @@ export default function UseReducer() {
         dispatch({ type: "APPEND", value: state.length + 1 });
     }
 
-    function onListItemRender(item) {
-        return <ListItem key={item} item={item} />;
-    }
-
     return (
         <>
             <h1>Use Reducer Example</h1>
             <hr />
             <div>
                 {state.map(onListItemRender)}
-                <button onClick={onAppend}>Append</button>
+                <button onClick={useCallback(() => onAppend())}>Append</button>
             </div>
         </>
     );
