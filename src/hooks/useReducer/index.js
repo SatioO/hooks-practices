@@ -59,21 +59,21 @@ export default function UseReducer() {
         console.log(state);
     }, [state]);
 
+    function onAppend() {
+        dispatch({ type: "APPEND", value: state.length + 1 });
+    }
+
+    function onListItemRender(item) {
+        return <ListItem key={item} item={item} />;
+    }
+
     return (
         <>
             <h1>Use Reducer Example</h1>
             <hr />
             <div>
-                {state.map(item => (
-                    <ListItem key={item} item={item} />
-                ))}
-                <button
-                    onClick={() =>
-                        dispatch({ type: "APPEND", value: state.length + 1 })
-                    }
-                >
-                    Append
-                </button>
+                {state.map(onListItemRender)}
+                <button onClick={onAppend}>Append</button>
             </div>
         </>
     );
