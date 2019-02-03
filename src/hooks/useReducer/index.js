@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 
 // function reducer(state, action) {
 //     switch (action.type) {
@@ -11,24 +11,60 @@ import React, { useReducer } from "react";
 //     }
 // }
 
-function reducer(state, action) {
-    const values = {
-        INCREMENT: () => state + 1,
-        DECREMENT: () => state - 1,
-        DEFAULT: () => state
-    };
+// function reducer(state, action) {
+//     const values = {
+//         INCREMENT: () => state + 1,
+//         DECREMENT: () => state - 1,
+//         DEFAULT: () => state
+//     };
 
-    return values[action.type] ? values[action.type]() : values["DEFAULT"]();
+//     return values[action.type] ? values[action.type]() : values["DEFAULT"]();
+// }
+
+// export default function UseReducer() {
+//     const [state, dispatch] = useReducer(reducer, 0);
+//     return (
+//         <>
+//             <h1>Use Reducer Example</h1>
+//             <h1>{state}</h1>
+//             <button onClick={() => dispatch({ type: "INCREMENT" })}>+</button>
+//             <button onClick={() => dispatch({ type: "DECREMENT" })}>-</button>
+//         </>
+//     );
+// }
+
+// const APPEND = Symbol("Append array element");
+
+function reducer(state, action) {
+    return {
+        APPEND: () => state.concat(action.value),
+        DEFAULT: () => state
+    }[action.type]();
 }
 
 export default function UseReducer() {
-    const [state, dispatch] = useReducer(reducer, 0);
+    const [state, dispatch] = useReducer(reducer, [1, 2, 3, 4, 5]);
+
+    useEffect(() => {
+        console.log(state);
+    }, [state]);
+
     return (
         <>
             <h1>Use Reducer Example</h1>
-            <h1>{state}</h1>
-            <button onClick={() => dispatch({ type: "INCREMENT" })}>+</button>
-            <button onClick={() => dispatch({ type: "DECREMENT" })}>-</button>
+            <hr />
+            <div>
+                {state.map(item => (
+                    <h1 key={item}>{item}</h1>
+                ))}
+                <button
+                    onClick={() =>
+                        dispatch({ type: "APPEND", value: state.length + 1 })
+                    }
+                >
+                    Append
+                </button>
+            </div>
         </>
     );
 }
