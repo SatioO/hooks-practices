@@ -1,7 +1,10 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, memo } from "react";
+// import { unstable_now as now } from "scheduler";
+// console.log(now);
 
 const PostList = ({ data = [] }) =>
     data.map(item => <PostItem key={item.id} {...item} />);
+
 const PostItem = memo(({ title }) => <h1>{title}</h1>);
 
 export default function UseEffect() {
@@ -24,12 +27,17 @@ export default function UseEffect() {
     // }, [count]);
 
     function onItemAdd() {
+        // trace("Adding Item", performance.now(), () => {
         const updated = [
             ...posts,
-            { id: posts.length + 1, title: `Post Title ${posts.length + 1}` }
+            {
+                id: posts.length + 1,
+                title: `Post Title ${posts.length + 1}`
+            }
         ];
 
         setPosts(updated);
+        // });
     }
 
     return (

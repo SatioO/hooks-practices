@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
-import { UseState, UseEffect } from "./hooks";
+import { UseState, UseEffect, UseReducer } from "./hooks";
 
 function App() {
     return (
-        <div>
+        <>
+            <UseReducer />
             {/* <UseState /> */}
-            <UseEffect />
-        </div>
+            {/* <UseEffect /> */}
+        </>
     );
 }
 
