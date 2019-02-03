@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, memo } from "react";
 
 // function reducer(state, action) {
 //     switch (action.type) {
@@ -42,6 +42,16 @@ function reducer(state, action) {
     }[action.type]();
 }
 
+const ListItem = memo(function ListItem({ item }) {
+    console.log(item);
+    return <h1>{item}</h1>;
+});
+
+// function ListItem({ item }) {
+//     console.log(item);
+//     return <h1>{item}</h1>;
+// }
+
 export default function UseReducer() {
     const [state, dispatch] = useReducer(reducer, [1, 2, 3, 4, 5]);
 
@@ -55,7 +65,7 @@ export default function UseReducer() {
             <hr />
             <div>
                 {state.map(item => (
-                    <h1 key={item}>{item}</h1>
+                    <ListItem key={item} item={item} />
                 ))}
                 <button
                     onClick={() =>
