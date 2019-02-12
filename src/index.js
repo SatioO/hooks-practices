@@ -25,12 +25,18 @@ function register() {
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker
             .register(`${process.env.PUBLIC_URL}/service-worker-custom.js`)
-            .then(function(registration) {
+            .then(function() {
                 console.log("Service worker registered! \u{1F60E}");
             })
             .catch(function(err) {
                 console.log(err);
             });
+
+        setTimeout(() => {
+            const img = new Image();
+            img.src = "/favicon.ico";
+            document.body.append(img);
+        }, 2000);
     } else {
         console.log(
             "You're running application in development mode or Your browser does not support Service worker."

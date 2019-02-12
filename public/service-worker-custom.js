@@ -4,7 +4,9 @@ self.addEventListener("install", function(event) {
     // Do not wait for other service worker to unregister
     self.skipWaiting();
     // wait until previos service worker is uninstalled
-    event.waitUntil(console.log(caches));
+    event.waitUntil(
+        caches.open("static-v1").then(cache => cache.add("/favicon.ico"))
+    );
 });
 
 self.addEventListener("activate", function() {
