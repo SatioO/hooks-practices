@@ -83,7 +83,9 @@ export default function UseReducer() {
             <hr />
             <div>
                 {state.map(onListItemRender)}
-                <button onClick={useCallback(() => onAppend())}>Append</button>
+                <button onClick={useCallback(() => onAppend(), [state])}>
+                    Append
+                </button>
             </div>
         </>
     );
